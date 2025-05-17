@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addLoggedInUserData } from "../store/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constant";
@@ -8,7 +8,7 @@ import { BASE_URL } from "../utils/constant";
 const Login = () => {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
-
+  const loggedInUser=useSelector(store=>store.user)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogin = async () => {
@@ -29,7 +29,7 @@ const Login = () => {
       console.error(err);
     }
   };
-  return (
+  return !loggedInUser && (
     <div className="flex justify-center my-30">
       <div className="card bg-neutral text-primary-content w-96 shadow-3xl justify-center">
         <div className="card-body">

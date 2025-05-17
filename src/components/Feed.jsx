@@ -1,7 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const Feed = () => {
-  return (
+  const loggedInUser=useSelector(store=>store.user)
+  return loggedInUser && (
     <div>Feed</div>
   )
 }
