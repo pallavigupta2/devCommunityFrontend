@@ -31,11 +31,11 @@ const Body = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <>
+    <div className="bg-pink-200 flex flex-col">
       <Header />
       <Outlet />
       <Footer />
-    </>
+    </div>
   );
 };
 
