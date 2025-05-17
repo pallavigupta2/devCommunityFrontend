@@ -1,9 +1,19 @@
+import axios from "axios";
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/constant";
+import { logoutUser } from "../store/userSlice";
 
 const Header = () => {
   const loggedInUser = useSelector((store) => store.user);
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const handleLogout=async()=>{
+      await axios.post(BASE_URL+"/logout",{},{withCredentials:true})
+      dispatch(logoutUser())
+      navigate("/login")
+  }
   return (
     <div className="navbar bg-neutral shadow-md">
       <div className="flex-1">
@@ -41,7 +51,7 @@ const Header = () => {
                 <a>Settings</a>
               </li>
               <li>
-                <a>Logout</a>
+                <Link onClick={handleLogout}>Logout</Link>
               </li>
             </ul>
           </div>
