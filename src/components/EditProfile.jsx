@@ -15,8 +15,16 @@ const EditProfile = ({ loggedInUser }) => {
   const [skills, setskills] = useState(loggedInUser?.skills?.join(", ") || "");
   const [error, setError] = useState("");
   const [showToast, setShowToast] = useState(false);
+  const [isGenderOpen, setIsGenderOpen] = useState(false);
   const dispatch = useDispatch();
-  const skillArray = skills.split(",").map(skill => skill.trim()).filter(skill => skill !== ""); 
+  const handleGenderSelect = (selectedGender) => {
+    setGender(selectedGender); // Save lowercase gender
+    setIsGenderOpen(false); // Close dropdown
+  };
+  const skillArray = skills
+    .split(",")
+    .map((skill) => skill.trim())
+    .filter((skill) => skill !== "");
   const handleSave = async () => {
     setError("");
     try {
@@ -29,8 +37,7 @@ const EditProfile = ({ loggedInUser }) => {
           photoUrl,
           age,
           gender,
-          skills:skillArray
-
+          skills: skillArray,
         },
         { withCredentials: true }
       );
@@ -56,79 +63,111 @@ const EditProfile = ({ loggedInUser }) => {
       <div className="mx-10 w-[60%]">
         <div className="card bg-neutral text-primary-content w-[100%] shadow-3xl">
           <div className="card-body p-[50px]">
-            <h2 className="card-title text-2xl">
-              Update Your Profile
-            </h2>
+            <h2 className="card-title text-2xl">Update Your Profile</h2>
             <div className="flex">
               <div className="w-[50%]">
                 <fieldset className="fieldset text-white text-xs">
-                <legend className="fieldset-legend text-white">First Name</legend>
-                <input
-                  type="text"
-                  className="input text-neutral"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-              </fieldset>
-              <fieldset className="fieldset text-white text-xs">
-                <legend className="fieldset-legend text-white">Last Name</legend>
-                <input
-                  type="text"
-                  className="input text-neutral"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </fieldset>
-              <fieldset className="fieldset text-white text-xs">
-                <legend className="fieldset-legend text-white">About Us</legend>
-                <textarea
-                  className="textarea h-24 text-neutral"
-                  placeholder="Bio"
-                  value={aboutUs}
-                  onChange={(e) => setAboutUs(e.target.value)}
-                ></textarea>
-              </fieldset>
+                  <legend className="fieldset-legend text-white">
+                    First Name
+                  </legend>
+                  <input
+                    type="text"
+                    className="input text-neutral"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </fieldset>
+                <fieldset className="fieldset text-white text-xs">
+                  <legend className="fieldset-legend text-white">
+                    Last Name
+                  </legend>
+                  <input
+                    type="text"
+                    className="input text-neutral"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                </fieldset>
+                <fieldset className="fieldset text-white text-xs">
+                  <legend className="fieldset-legend text-white">
+                    About Us
+                  </legend>
+                  <textarea
+                    className="textarea h-24 text-neutral"
+                    placeholder="Bio"
+                    value={aboutUs}
+                    onChange={(e) => setAboutUs(e.target.value)}
+                  ></textarea>
+                </fieldset>
               </div>
               <div className="w-[50%]">
                 <fieldset className="fieldset text-white text-xs">
-                <legend className="fieldset-legend text-white">
-                  Upload Photo
-                </legend>
-                {/* <input type="file" className="file-input text-neutral" value={photoUrl} onChange={(e) => setPhotoUrl(e.target.value)}/> */}
-                <input
-                  type="text"
-                  className="input text-neutral"
-                  value={photoUrl}
-                  onChange={(e) => setPhotoUrl(e.target.value)}
-                />
-              </fieldset>
-              <fieldset className="fieldset text-white text-xs">
-                <legend className="fieldset-legend text-white">Skills</legend>
-                <input
-                  type="text"
-                  className="input text-neutral"
-                  value={skills}
-                  onChange={(e) => setskills(e.target.value)}
-                />
-              </fieldset>
-              <fieldset className="fieldset text-white text-xs">
-                <legend className="fieldset-legend text-white">Age</legend>
-                <input
-                  type="text"
-                  className="input text-neutral"
-                  value={age}
-                  onChange={(e) => setAge(e.target.value)}
-                />
-              </fieldset>
-              <fieldset className="fieldset text-white text-xs">
-                <legend className="fieldset-legend text-white">Gender </legend>
-                <input
-                  type="text"
-                  className="input text-neutral"
-                  value={gender}
-                  onChange={(e) => setGender(e.target.value)}
-                />
-              </fieldset>
+                  <legend className="fieldset-legend text-white">
+                    Upload Photo
+                  </legend>
+                  {/* <input type="file" className="file-input text-neutral" value={photoUrl} onChange={(e) => setPhotoUrl(e.target.value)}/> */}
+                  <input
+                    type="text"
+                    className="input text-neutral"
+                    value={photoUrl}
+                    onChange={(e) => setPhotoUrl(e.target.value)}
+                  />
+                </fieldset>
+                <fieldset className="fieldset text-white text-xs">
+                  <legend className="fieldset-legend text-white">Skills</legend>
+                  <input
+                    type="text"
+                    className="input text-neutral"
+                    value={skills}
+                    onChange={(e) => setskills(e.target.value)}
+                  />
+                </fieldset>
+                <fieldset className="fieldset text-white text-xs">
+                  <legend className="fieldset-legend text-white">Age</legend>
+                  <input
+                    type="text"
+                    className="input text-neutral"
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                  />
+                </fieldset>
+
+                <fieldset className="fieldset text-white text-xs">
+                  <legend className="fieldset-legend text-white">
+                    Gender{" "}
+                  </legend>
+
+                  <div className="dropdown w-40">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      className="btn m-1 w-full"
+                      onClick={() => isGenderOpen(true)}
+                    >
+                      {gender
+                        ? gender.charAt(0).toUpperCase() + gender.slice(1)
+                        : "Select Gender"}
+                    </div>
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content menu bg-white rounded-box z-10 w-full p-2 shadow-md text-neutral"
+                    >
+                      <li>
+                        <a onClick={() => handleGenderSelect("male")}>Male</a>
+                      </li>
+                      <li>
+                        <a onClick={() => handleGenderSelect("female")}>
+                          Female
+                        </a>
+                      </li>
+                      <li>
+                        <a onClick={() => handleGenderSelect("others")}>
+                          Others
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </fieldset>
               </div>
             </div>
             {error && <p className="text-red-400">{error}</p>}
