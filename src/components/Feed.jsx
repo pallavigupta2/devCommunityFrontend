@@ -26,11 +26,12 @@ const Feed = () => {
   }, []);
   return (
     loggedInUser && feed && (
-      <div className="flex justify-center my-10">
+      <div className="my-10 flex justify-center">
         {
             error && <p className="text-red-600">{error}</p>
         }
         <UserCard user={feed[5]}/>
+        
       </div>
     )
   );
