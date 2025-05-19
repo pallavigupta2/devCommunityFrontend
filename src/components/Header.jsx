@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Links, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constant";
 import { logoutUser } from "../store/userSlice";
 
@@ -48,7 +48,10 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <a>Settings</a>
+                <Link to="/connections">My Connections</Link>
+              </li>
+              <li>
+                <Link to="/request">Friend Request</Link>
               </li>
               <li>
                 <Link onClick={handleLogout}>Logout</Link>

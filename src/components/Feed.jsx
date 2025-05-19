@@ -30,7 +30,7 @@ const Feed = () => {
         {
             error && <p className="text-red-600">{error}</p>
         }
-        <UserCard user={feed[3]}/>
+        <UserCard user={feed[2]}/>
         
       </div>
     )
