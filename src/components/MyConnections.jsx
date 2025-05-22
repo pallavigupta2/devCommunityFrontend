@@ -32,7 +32,7 @@ const MyConnections = () => {
       <h1 className="text-3xl p-2">My Connections</h1>
       {connections?.map((connection) => {
         return (
-          <div className="bg-neutral rounded-lg shadow-amber-50 flex w-3xl m-4 p-4 mx-auto">
+          <div className="bg-neutral rounded-lg shadow-amber-50 flex w-3xl m-4 p-4 mx-auto" id={connection._id}>
             <div>
               <img
                 src={connection.photoUrl}
