@@ -30,7 +30,6 @@ const Body = () => {
   }, []);
   return (
     <div className="bg-pink-200">
-      {console.log("pink")}
       <Header />
       <div className=" flex flex-col py-3">
         <Outlet />
